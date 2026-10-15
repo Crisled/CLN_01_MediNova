@@ -33,4 +33,8 @@ Ejecutar desde la raíz del proyecto.
 - La implementación en memoria es demostrativa; para concurrencia real multiproceso se necesita SQL con control de versión atómico.
 - El informe deja pendientes las reglas de autorización por convenio y ciertos escenarios de cancelación de jornada.
 
-**Integrantes:** pendiente de completar por el equipo.
+**Integrantes:** 
+Diego Armando Esparza Flores 1908457
+Cristopher Led Juarez Luna 2019069
+José Ángel Leal Sifuentes 2025292
+
