@@ -1,0 +1,15 @@
+flowchart TB
+  subgraph AG1["Aggregate AgendaMedica (medico y fecha)"]
+    J[Jornada]
+    C[Cita]
+  end
+  subgraph AG2["Aggregate Paciente"]
+    P[Paciente]
+  end
+  subgraph AG3["Aggregate RegistroDeAuditoria"]
+    R[Registro de auditoria]
+  end
+  AG1 -->|publica| E[Domain Events]
+  C -.->|expediente| P
+  C -.->|id de cita| R
+  C -.->|referencia| K[Catalogos: Medico, Aseguradora, Sucursal, Especialidad]

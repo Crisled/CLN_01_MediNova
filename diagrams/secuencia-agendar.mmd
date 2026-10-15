@@ -1,0 +1,18 @@
+sequenceDiagram
+  actor R as Recepcionista
+  participant S as AgendamientoService
+  participant U as UnitOfWork
+  participant RP as AgendaMedicaRepository
+  participant A as AgendaMedica
+  participant N as Notificador
+  R->>S: agendarCita(cmd)
+  S->>U: abrir()
+  S->>RP: obtenerPorMedicoYFecha()
+  RP-->>S: agenda
+  S->>A: agendar(cita, limite)
+  A->>A: valida invariantes
+  A-->>S: CitaAgendada (evento)
+  S->>RP: guardar(agenda)
+  S->>U: confirmar()
+  U->>N: publicar CitaAgendada (tras confirmar)
+  S-->>R: CitaAgendadaDto

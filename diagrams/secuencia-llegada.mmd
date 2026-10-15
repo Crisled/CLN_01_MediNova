@@ -1,0 +1,25 @@
+sequenceDiagram
+  actor R as Recepcionista
+  participant S as AtencionService
+  participant U as UnitOfWork
+  participant C as Reloj
+  participant RP as AgendaMedicaRepository
+  participant A as AgendaMedica
+  R->>S: registrarLlegada(cmd)
+  S->>U: abrir()
+  S->>C: ahora()
+  C-->>S: hora de llegada
+  S->>RP: obtenerPorCita(citaId)
+  RP-->>S: agenda
+  S->>A: registrarLlegada(cita, hora)
+  A->>A: Tolerancia evalua retraso
+  alt a tiempo
+    A-->>S: paciente presente
+  else 1 a 15 minutos
+    A-->>S: paciente presente y alerta para consultar al medico
+  else mas de 15 minutos
+    A-->>S: no atendida por retraso (CitaNoAtendidaPorRetraso)
+  end
+  S->>RP: guardar(agenda)
+  S->>U: confirmar()
+  S-->>R: ResultadoDeLlegada

@@ -1,0 +1,97 @@
+classDiagram
+  class AgendamientoService {
+    +agendarCita(cmd)
+    +cancelarCita(cmd)
+  }
+  class AtencionService {
+    +registrarLlegada(cmd)
+    +marcarNoAtendidaPorRetraso(cmd)
+    +marcarNoShow(cmd)
+  }
+  class JornadaService {
+    +cancelarJornada(cmd)
+    +reagendarCitaAfectada(cmd)
+  }
+  class PacienteService {
+    +registrarPaciente(cmd)
+  }
+  class QueryHandlers
+  class UnitOfWork {
+    <<interface>>
+  }
+  class Notificador {
+    <<interface>>
+  }
+  class Reloj {
+    <<interface>>
+  }
+  class AgendaMedica {
+    <<raiz>>
+    +agendar()
+    +cancelar()
+    +modificar()
+    +registrarLlegada()
+    +marcarNoShow()
+    +marcarNoAtendidaPorRetraso()
+    +cancelarJornada()
+  }
+  class Cita
+  class Jornada
+  class Paciente {
+    <<raiz>>
+  }
+  class Reagendador {
+    <<DomainService>>
+  }
+  class PoliticaDeNoShow {
+    <<interface>>
+  }
+  class PoliticaDeAutorizacion {
+    <<interface>>
+  }
+  class AgendaMedicaRepository {
+    <<interface>>
+  }
+  class PacienteRepository {
+    <<interface>>
+  }
+  class MedicoRepository {
+    <<interface>>
+  }
+  class AseguradoraRepository {
+    <<interface>>
+  }
+  class RegistroDeAuditoriaRepository {
+    <<interface>>
+  }
+  class AgendaMedicaRepositorySql
+  class PacienteRepositorySql
+  class UnitOfWorkSql
+  class NotificadorWhatsApp
+  class RelojSistema
+  class DisponibilidadReaderSql
+  AgendaMedica *-- Cita
+  AgendaMedica *-- Jornada
+  Reagendador ..> AgendaMedica
+  AgendamientoService ..> AgendaMedica
+  AtencionService ..> AgendaMedica
+  JornadaService ..> AgendaMedica
+  JornadaService ..> Reagendador
+  PacienteService ..> Paciente
+  AgendamientoService ..> AgendaMedicaRepository
+  AgendamientoService ..> PacienteRepository
+  AgendamientoService ..> MedicoRepository
+  AgendamientoService ..> PoliticaDeAutorizacion
+  AgendamientoService ..> UnitOfWork
+  AtencionService ..> Reloj
+  AtencionService ..> AgendaMedicaRepository
+  AtencionService ..> UnitOfWork
+  JornadaService ..> AgendaMedicaRepository
+  JornadaService ..> UnitOfWork
+  PacienteService ..> PacienteRepository
+  AgendaMedicaRepositorySql ..|> AgendaMedicaRepository
+  PacienteRepositorySql ..|> PacienteRepository
+  UnitOfWorkSql ..|> UnitOfWork
+  NotificadorWhatsApp ..|> Notificador
+  RelojSistema ..|> Reloj
+  QueryHandlers ..> DisponibilidadReaderSql
